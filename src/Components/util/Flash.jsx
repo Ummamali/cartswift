@@ -14,7 +14,7 @@ export default function Flash({ flash, timeout = 3000 }) {
   }, [flash, timeout]);
   return createPortal(
     <div
-      className={`fixed z-10 bottom-6 py-4 px-6 min-w-3xs text-black/80 bg-gray-50 border border-gray-400 shadow-sm rounded-sm transition-transform ${
+      className={`fixed z-10 bottom-6 py-4 px-6 min-w-xs text-black/80 bg-gray-50 border border-gray-400 shadow-sm rounded-sm transition-transform ${
         isVisible ? "translate-x-0 right-6" : "translate-x-full right-0"
       }`}
     >
