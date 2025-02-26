@@ -1,8 +1,15 @@
 import React from "react";
 import ListRow from "./ListRow";
 import { itemsDatabase } from "../../data";
+import ConfirmationButton from "../util/ConfirmationButton";
 
-export default function CartItems({ cart, addToCart, decrementFromCart }) {
+export default function CartItems({
+  cart,
+  addToCart,
+  decrementFromCart,
+  clearCart,
+  setFlash,
+}) {
   const cartEntries = Object.entries(cart);
   let total = 0;
   for (const [itemId, amount] of cartEntries) {
@@ -10,10 +17,21 @@ export default function CartItems({ cart, addToCart, decrementFromCart }) {
   }
   return (
     <div>
-      <h3 className="text-xl mb-4">Your Cart</h3>
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="text-xl">Your Cart</h3>
+        <ConfirmationButton
+          className="hover:text-red-600"
+          onConfirmedClick={() => {
+            clearCart();
+            setFlash({ message: "Your cart has been cleared!" });
+          }}
+        >
+          Clear All
+        </ConfirmationButton>
+      </div>
       <div className="space-y-4 mb-4">
         {cartEntries.length === 0 && (
-          <p className="text-center text-gray-700">
+          <p className="text-center text-gray-700 my-10">
             Oops! No items in your cart. Add something awesome!
           </p>
         )}

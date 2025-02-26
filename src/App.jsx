@@ -4,11 +4,13 @@ import Header from "./Components/Header";
 import ItemShowcase from "./Components/ItemSHowcase";
 import Modal from "./Components/util/Modal";
 import CartItems from "./Components/CartItems/CartItems";
+import Flash from "./Components/util/Flash";
 
 export default function App() {
   const isFirstRender = useRef(true);
   const [cart, setCart] = useState({});
   const [listModal, setListModal] = useState(false);
+  const [flash, setFlash] = useState({ message: null });
 
   // Hooks below
   useEffect(() => {
@@ -46,6 +48,10 @@ export default function App() {
     }
   }
 
+  function clearCart() {
+    setCart({});
+  }
+
   function showListModal() {
     setListModal(true);
   }
@@ -62,9 +68,12 @@ export default function App() {
             cart={cart}
             addToCart={addToCart}
             decrementFromCart={decrementFromCart}
+            clearCart={clearCart}
+            setFlash={setFlash}
           />
         </Modal>
       )}
+      <Flash flash={flash} />
       <Header
         itemCount={Object.values(cart).reduce((prev, curr) => prev + curr, 0)}
         showListModal={showListModal}

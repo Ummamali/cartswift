@@ -1,1 +1,6 @@
 @import "tailwindcss";
+
+/* Base styles */
+button {
+  cursor: pointer;
+}
