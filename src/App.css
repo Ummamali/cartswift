@@ -1,0 +1,16 @@
+@keyframes smoothJump {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-5px) scale(1.12);
+  }
+  100% {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.jump {
+  display: inline-block;
+  animation: smoothJump 220ms ease-in-out;
+}
