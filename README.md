@@ -31,4 +31,27 @@ Built with modern React.js practices, this project leverages reusable components
 ### 3. Persistent Cart with LocalStorage  
 - Cart data is saved automatically using LocalStorage.  
 - Ensures the cart remains intact even after a page refresh.  
-- Allows users to resume their shopping session without losing selections.  
+- Allows users to resume their shopping session without losing selections.
+
+
+## Installation  
+
+Follow these steps to set up and run the Project Manager app locally (Make sure you have Node.js and npm installed before running the commands):  
+
+1. **Clone the repository:**  
+   ```sh
+   git clone https://github.com/Ummamali/cartswift.git
+   cd cartswift
+
+2. **Install dependencies:**
+    ```sh
+    npm install
+    
+3. **Start the development server:**
+     ```sh
+     npm run dev
+
+
+## License  
+
+This project is licensed under the **MIT License**. For more details, visit [MIT License](https://opensource.org/licenses/MIT).  
