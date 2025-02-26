@@ -1,41 +1,51 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useReducer } from "react";
 import { CartContext } from "./CartContext";
+
+export const actionTypes = {
+  added: "added",
+  removed: "removed",
+  cleared: "cleared",
+  loadedFromLS: "loadedFromLS",
+};
+
+function cartReducer(state, action) {
+  if (action.type === actionTypes.added) {
+    const itemId = action.itemId;
+    if (itemId in state) {
+      return { ...state, [itemId]: state[itemId] + 1 };
+    } else {
+      return { ...state, [itemId]: 1 };
+    }
+  } else if (action.type === actionTypes.removed) {
+    const itemId = action.itemId;
+    if (itemId in state && state[itemId] > 1) {
+      return { ...state, [itemId]: state[itemId] - 1 };
+    } else if (itemId in state) {
+      const newState = { ...state };
+      delete newState[itemId];
+      return newState;
+    }
+  } else if (action.type === actionTypes.cleared) {
+    return {};
+  } else if (action.type === actionTypes.loadedFromLS) {
+    return action.data;
+  }
+  return state;
+}
 
 // ------------ Component
 export default function CartContextProvider({ children }) {
   const isFirstRender = useRef(true);
 
-  const [cart, setCart] = useState({});
-
-  // Features for this state
-  function addToCart(itemId) {
-    if (itemId in cart) {
-      setCart((prev) => ({ ...prev, [itemId]: prev[itemId] + 1 }));
-    } else {
-      setCart((prev) => ({ ...prev, [itemId]: 1 }));
-    }
-  }
-
-  function decrementFromCart(itemId) {
-    if (itemId in cart && cart[itemId] > 1) {
-      setCart((prev) => ({ ...prev, [itemId]: prev[itemId] - 1 }));
-    } else if (itemId in cart) {
-      setCart((prev) => {
-        const newState = { ...prev };
-        delete newState[itemId];
-        return newState;
-      });
-    }
-  }
-
-  function clearCart() {
-    setCart({});
-  }
+  const [cart, dispatchCart] = useReducer(cartReducer, {});
 
   // Hooks below for using local storage
   useEffect(() => {
     if (localStorage.getItem("cart") !== null) {
-      setCart(JSON.parse(localStorage.getItem("cart")));
+      dispatchCart({
+        type: actionTypes.loadedFromLS,
+        data: JSON.parse(localStorage.getItem("cart")),
+      });
     }
   }, []);
 
@@ -49,7 +59,16 @@ export default function CartContextProvider({ children }) {
   }, [cart]);
 
   return (
-    <CartContext value={{ cart, addToCart, decrementFromCart, clearCart }}>
+    <CartContext
+      value={{
+        cart,
+        addToCart: (itemId) =>
+          dispatchCart({ type: actionTypes.added, itemId }),
+        decrementFromCart: (itemId) =>
+          dispatchCart({ type: actionTypes.removed, itemId }),
+        clearCart: () => dispatchCart({ type: actionTypes.cleared }),
+      }}
+    >
       {children}
     </CartContext>
   );
