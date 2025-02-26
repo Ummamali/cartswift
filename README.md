@@ -3,6 +3,8 @@
 
 This Shopping Cart Practice App allows users to add item to their cart and review their selections in an interactive overlay. The overlay provides a clear summary of selected items, including quantities, individual prices, and the total cost. Users can easily adjust their cart contents, ensuring a smooth and intuitive shopping experience. Designed to simulate real-world e-commerce functionality, this project helps in understanding cart management and checkout logic. It is a great tool for practicing dynamic UI updates and state management.  
 
+<img src="./preview.jpg" alt="Project Preview"/>
+
 Built with modern React.js practices, this project leverages reusable components and efficient state handling. It ensures a responsive and seamless user experience with the latest web technologies.  
 
 
