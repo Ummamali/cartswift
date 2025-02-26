@@ -39,16 +39,19 @@ Built with modern React.js practices, this project leverages reusable components
 Follow these steps to set up and run the Project Manager app locally (Make sure you have Node.js and npm installed before running the commands):  
 
 1. **Clone the repository:**  
-   ```sh
+
+    ```sh
    git clone https://github.com/Ummamali/cartswift.git
    cd cartswift
 
-2. **Install dependencies:**
+3. **Install dependencies:**
+
     ```sh
     npm install
     
-3. **Start the development server:**
-     ```sh
+5. **Start the development server:**
+
+   ```sh
      npm run dev
 
 
