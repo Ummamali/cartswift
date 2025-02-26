@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
+import { CartContext } from "../store/CartContext";
 
-export default function ItemCard({ item, itemId, addToCart }) {
+export default function ItemCard({ item, itemId }) {
+  const cartCtx = useContext(CartContext);
   return (
     <div className="flex flex-col justify-between bg-gray-100 pb-4">
       <div className="mb-4">
@@ -19,7 +21,7 @@ export default function ItemCard({ item, itemId, addToCart }) {
       </div>
       <button
         className="mx-4 py-2 px-8 bg-black text-white rounded-sm text-sm cursor-pointer hover:opacity-90"
-        onClick={() => addToCart(itemId)}
+        onClick={() => cartCtx.addToCart(itemId)}
       >
         Add To Cart
       </button>

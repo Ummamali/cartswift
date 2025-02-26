@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { CartContext } from "../store/CartContext";
 
-export default function Header({ itemCount, showListModal }) {
+export default function Header({ showListModal }) {
   const [jump, setJump] = useState(false);
+  const cartCtx = useContext(CartContext);
+  const itemCount = Object.values(cartCtx.cart).reduce(
+    (prev, curr) => prev + curr,
+    0
+  );
 
   useEffect(() => {
     setJump(true);

@@ -1,16 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import ListRow from "./ListRow";
 import { itemsDatabase } from "../../data";
 import ConfirmationButton from "../util/ConfirmationButton";
+import { CartContext } from "../../store/CartContext";
 
-export default function CartItems({
-  cart,
-  addToCart,
-  decrementFromCart,
-  clearCart,
-  setFlash,
-}) {
-  const cartEntries = Object.entries(cart);
+export default function CartItems({ setFlash }) {
+  const cartCtx = useContext(CartContext);
+  const cartEntries = Object.entries(cartCtx.cart);
   let total = 0;
   for (const [itemId, amount] of cartEntries) {
     total += itemsDatabase[itemId].price * amount;
@@ -22,7 +18,7 @@ export default function CartItems({
         <ConfirmationButton
           className="hover:text-red-600"
           onConfirmedClick={() => {
-            clearCart();
+            cartCtx.clearCart();
             setFlash({ message: "Your cart has been cleared!" });
           }}
         >
@@ -36,13 +32,7 @@ export default function CartItems({
           </p>
         )}
         {cartEntries.map(([itemId, amount]) => (
-          <ListRow
-            itemId={itemId}
-            amount={amount}
-            key={itemId}
-            addToCart={addToCart}
-            decrementFromCart={decrementFromCart}
-          />
+          <ListRow itemId={itemId} amount={amount} key={itemId} />
         ))}
       </div>
       <div className="text-right">
